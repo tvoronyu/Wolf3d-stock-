@@ -49,7 +49,10 @@ int		ft_count_str_on_map(t_wolf *wolf)
 	{
 		while (get_next_line(fd, &line))
 		{
-			n++;
+			if (line[0] != '\0')
+			{
+				n++;
+			}
 			free(line);
 		}
 		close(fd);
@@ -74,9 +77,12 @@ void	ft_read_map_on_file(t_wolf *wolf)
 		wolf->counter_str_on_map = 0;
 		while (get_next_line(fd, &line))
 		{
-			str[wolf->counter_str_on_map++] = ft_strjoin(line, "\n");
-			wolf->count_array++;
-			free(line);
+		    if (line[0] != '\0')
+		    {
+                str[wolf->counter_str_on_map++] = ft_strjoin(line, "\n");
+                wolf->count_array++;
+            }
+		    free(line);
 		}
 	}
 	wolf->full_map = str;
@@ -112,6 +118,6 @@ int		main(int argc, char *argv[])
 	else
 		ft_putendl("___Error___\nMany arguments or wrong map selection\n"
 				"./wolf3d maps/...");
-	system("leaks wolf3d");
+//	system("leaks wolf3d");
 	return (0);
 }
